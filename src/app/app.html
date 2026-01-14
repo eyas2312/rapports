@@ -1,0 +1,18 @@
+<div class="d-flex">
+
+  <app-rapport-list
+    (selectRapport)="onSelectRapport($event)">
+  </app-rapport-list>
+
+  <div class="flex-grow-1">
+    <app-rapport-detail
+      *ngIf="selectedRapport"
+      [rapportIndexItem]="selectedRapport">
+    </app-rapport-detail>
+
+    <div *ngIf="!selectedRapport" class="p-5 text-center text-muted">
+      👉 Sélectionne un rapport à gauche
+    </div>
+  </div>
+
+</div>
