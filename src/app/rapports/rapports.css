@@ -110,6 +110,18 @@ select:focus {
   border-color: #667eea;
 }
 
+.pagination-info {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #667eea;
+  font-weight: 600;
+  font-size: 1.1em;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 .rapport-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -138,21 +150,25 @@ select:focus {
   font-size: 1.5em;
   margin-bottom: 15px;
   font-weight: 700;
+  word-break: break-word;
 }
 
 .rapport-info {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  color: #666;
+  gap: 12px;
 }
 
 .info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+  border-bottom: none;
 }
 
 .info-label {
@@ -161,24 +177,168 @@ select:focus {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-size: 0.95em;
+}
+
+.info-value {
+  color: #666;
+  font-size: 0.9em;
+  text-align: right;
+  word-break: break-word;
 }
 
 .badge {
   display: inline-block;
-  padding: 5px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 0.9em;
-  font-weight: 600;
-  background: #667eea;
+  font-size: 0.95em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .no-results {
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: 15px;
-  font-size: 1.3em;
-  color: #666;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.no-results-icon {
+  font-size: 4em;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.no-results h3 {
+  font-size: 1.8em;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.no-results p {
+  font-size: 1.1em;
+  color: #666;
+}
+
+/* PAGINATION STYLES */
+.pagination-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 30px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.page-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.page-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.5);
+}
+
+.page-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.page-number {
+  padding: 10px 16px;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 45px;
+}
+
+.page-number:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.page-number.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+  transform: scale(1.1);
+}
+
+.page-dots {
+  color: #667eea;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0 5px;
+}
+
+/* INDICATEUR DE PAGE EN BAS */
+.page-indicator {
+  text-align: center;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border-radius: 10px;
+  font-size: 1.1em;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rapport-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    gap: 5px;
+  }
+
+  .page-btn {
+    padding: 10px 16px;
+    font-size: 0.9em;
+  }
+
+  .page-number {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    min-width: 40px;
+  }
+
+  .pagination-info {
+    font-size: 0.95em;
+    padding: 12px 15px;
+  }
+
+  .page-indicator {
+    font-size: 1em;
+  }
 }

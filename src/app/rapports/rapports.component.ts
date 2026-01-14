@@ -9,11 +9,11 @@ import { RapportIndex } from '../models/rapport.model';
   selector: 'app-rapports',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  providers: [RapportService],
   templateUrl: './rapports.html',
   styleUrls: ['./rapports.css']
 })
 export class RapportsComponent implements OnInit {
+  Math=Math;
   rapports: RapportIndex[] = [];
   filteredRapports: RapportIndex[] = [];
   totalRapports = 0;
@@ -23,6 +23,13 @@ export class RapportsComponent implements OnInit {
   searchTerm = '';
   sortBy: 'nom' | 'lignes' = 'nom';
   sortOrder: 'asc' | 'desc' = 'asc';
+
+  // 🆕 PAGINATION - AJOUTEZ CES PROPRIÉTÉS
+  currentPage = 1;
+  itemsPerPage = 12;
+  totalPages = 0;
+  paginatedRapports: RapportIndex[] = [];
+
 
   constructor(
     private rapportService: RapportService,
@@ -35,23 +42,22 @@ export class RapportsComponent implements OnInit {
   }
 
   loadRapports(): void {
-  this.rapportService.getIndexData().subscribe((data: { total: number; rapports: RapportIndex[] }) => {
-    console.log('Index data:', data);
-    this.totalRapports = data.total;
-    // Spécifier que r est de type RapportIndex
-    this.totalLignes = data.rapports.reduce((sum: number, r: RapportIndex) => sum + r.nombre_lignes, 0);
-    
-    this.rapportService.getRapportsActifs().subscribe((actifs: RapportIndex[]) => {
-      console.log('Rapports actifs:', actifs);
-      this.rapports = actifs;
-      this.rapportsActifs = actifs.length;
-      this.applyFilters();
+    this.rapportService.getIndexData().subscribe(data => {
+      console.log('Index data:', data);
+      this.totalRapports = data.total;
+      this.totalLignes = data.rapports.reduce((sum, r) => sum + r.nombre_lignes, 0);
+      
+      this.rapportService.getRapportsActifs().subscribe(actifs => {
+        console.log('Rapports actifs:', actifs);
+        this.rapports = actifs;
+        this.rapportsActifs = actifs.length;
+        this.applyFilters();
+      });
     });
-  });  
-}
-
+  }
 
   onSearch(): void {
+    this.currentPage = 1; // 🆕 Reset à la page 1 lors de la recherche
     this.applyFilters();
   }
 
@@ -79,6 +85,86 @@ export class RapportsComponent implements OnInit {
       const comparison = (valA as number) - (valB as number);
       return this.sortOrder === 'asc' ? comparison : -comparison;
     });
+
+    // 🆕 APPLIQUER LA PAGINATION
+    this.updatePagination();
+  }
+
+  // 🆕 MÉTHODES DE PAGINATION - AJOUTEZ CES MÉTHODES
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredRapports.length / this.itemsPerPage);
+    
+    // S'assurer que currentPage est valide
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages || 1;
+    }
+    
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedRapports = this.filteredRapports.slice(startIndex, endIndex);
+    
+    console.log('Pagination:', {
+      currentPage: this.currentPage,
+      totalPages: this.totalPages,
+      itemsPerPage: this.itemsPerPage,
+      paginatedCount: this.paginatedRapports.length
+    });
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  onItemsPerPageChange(): void {
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  getPageNumbers(): number[] {
+    const pages: number[] = [];
+    const maxPagesToShow = 5;
+    
+    if (this.totalPages <= maxPagesToShow) {
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (this.currentPage <= 3) {
+        for (let i = 1; i <= 5; i++) {
+          pages.push(i);
+        }
+      } else if (this.currentPage >= this.totalPages - 2) {
+        for (let i = this.totalPages - 4; i <= this.totalPages; i++) {
+          pages.push(i);
+        }
+      } else {
+        for (let i = this.currentPage - 2; i <= this.currentPage + 2; i++) {
+          pages.push(i);
+        }
+      }
+    }
+    
+    return pages;
   }
 
   openRapport(rapport: RapportIndex): void {

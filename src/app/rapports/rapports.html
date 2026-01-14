@@ -36,21 +36,34 @@
       <option value="asc">Croissant</option>
       <option value="desc">Décroissant</option>
     </select>
+
+    <select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+      <option [value]="12">12 par page</option>
+      <option [value]="24">24 par page</option>
+      <option [value]="48">48 par page</option>
+      <option [value]="100">100 par page</option>
+    </select>
   </div>
 
-  <div class="rapport-grid">
+  <div class="pagination-info" *ngIf="filteredRapports.length > 0">
+    Affichage de {{ (currentPage - 1) * itemsPerPage + 1 }} à 
+    {{ currentPage * itemsPerPage > filteredRapports.length ? filteredRapports.length : currentPage * itemsPerPage }} 
+    sur {{ filteredRapports.length }} rapports
+  </div>
+
+  <div class="rapport-grid" *ngIf="paginatedRapports.length > 0">
     <div 
-      *ngFor="let rapport of filteredRapports" 
+      *ngFor="let rapport of paginatedRapports" 
       class="rapport-card"
       (click)="openRapport(rapport)">
       <h3>{{ rapport.nom }}</h3>
       <div class="rapport-info">
         <div class="info-row">
-          <span class="info-label">📄 Fichier:</span>
-          <span>{{ rapport.fichier }}</span>
+          <span class="info-label">📄 Fichier</span>
+          <span class="info-value">{{ rapport.fichier }}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">📊 Lignes:</span>
+          <span class="info-label">📊 Lignes</span>
           <span class="badge">{{ rapport.nombre_lignes }}</span>
         </div>
       </div>
@@ -58,6 +71,58 @@
   </div>
 
   <div *ngIf="filteredRapports.length === 0" class="no-results">
-    Aucun rapport trouvé
+    <div class="no-results-icon">🔍</div>
+    <h3>Aucun rapport trouvé</h3>
+    <p>Essayez de modifier vos critères de recherche</p>
+  </div>
+
+  <!-- PAGINATION EN BAS -->
+  <div class="pagination-container" *ngIf="totalPages > 1">
+    <div class="pagination">
+      <button 
+        class="page-btn" 
+        (click)="previousPage()" 
+        [disabled]="currentPage === 1">
+        ← Précédent
+      </button>
+
+      <button 
+        *ngIf="currentPage > 3 && totalPages > 5"
+        class="page-number"
+        (click)="goToPage(1)">
+        1
+      </button>
+
+      <span *ngIf="currentPage > 3 && totalPages > 5" class="page-dots">...</span>
+
+      <button 
+        *ngFor="let page of getPageNumbers()"
+        class="page-number"
+        [class.active]="page === currentPage"
+        (click)="goToPage(page)">
+        {{ page }}
+      </button>
+
+      <span *ngIf="currentPage < totalPages - 2 && totalPages > 5" class="page-dots">...</span>
+
+      <button 
+        *ngIf="currentPage < totalPages - 2 && totalPages > 5"
+        class="page-number"
+        (click)="goToPage(totalPages)">
+        {{ totalPages }}
+      </button>
+
+      <button 
+        class="page-btn" 
+        (click)="nextPage()" 
+        [disabled]="currentPage === totalPages">
+        Suivant →
+      </button>
+    </div>
+
+    <!-- NUMÉRO DE PAGE EN BAS -->
+    <div class="page-indicator">
+      Page {{ currentPage }} sur {{ totalPages }}
+    </div>
   </div>
 </div>
