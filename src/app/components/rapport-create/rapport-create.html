@@ -1,0 +1,88 @@
+<!-- app.component.html -->
+<div class="p-6 font-sans">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold text-slate-800">Tableau de Mesures</h2>
+    <button
+      (click)="addRow()"
+      class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition"
+    >
+      + Ajouter une ligne
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="table-container">
+    <table class="text-sm text-left">
+      <!-- HEAD -->
+      <thead>
+        <tr>
+          <th>Col_1</th>
+          <th>Nom</th>
+          <th>Dénomination</th>
+          <th>Heure Min</th>
+          <th>Min</th>
+          <th>Heure Max</th>
+          <th>Max</th>
+          <th>MoyP</th>
+          <th>Unité</th>
+          <th>QF</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <!-- BODY -->
+      <tbody>
+        <tr *ngFor="let row of rows">
+          <!-- ── EDIT MODE ── -->
+          <td>
+            <input [(ngModel)]="row.col_1" placeholder="Col_1" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.nom" placeholder="Nom" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.denomination" placeholder="Dénomination" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.heureMin" type="time" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.min" type="number" placeholder="Min" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.heureMax" type="time" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.max" type="number" placeholder="Max" />
+          </td>
+          <td>
+            <input [(ngModel)]="row.moyp" type="number" placeholder="Moy" />
+          </td>
+          <td>
+            <select [(ngModel)]="row.uniting">
+              <option value="">--</option>
+              <option>°C</option>
+              <option>barg</option>
+              <option>kg/h</option>
+              <option>kg/s</option>
+              <option>m³</option>
+              <option>Nm³</option>
+              <option>MW</option>
+              <option>MJ/m³</option>
+              <option>kcal/kWh</option>
+            </select>
+          </td>
+          <td>
+            <input [(ngModel)]="row.qf" type="number" min="0" max="100" placeholder="QF" />
+          </td>
+          <td>
+            <div class="flex gap-2">
+              <button (click)="deleteRow(row)">✖</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
