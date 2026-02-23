@@ -10,16 +10,21 @@ import { RapportIndex } from '../models/rapport.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './rapports.html',
-  styleUrls: ['./rapports.css']
+  styleUrls: ['./rapports.css'],
 })
 export class RapportsComponent implements OnInit {
-  Math=Math;
+  createNewRapport() {
+    // Redirige vers la page de création de rapport avec le numero totalRapports + 1
+    const newRapportNumber = this.totalRapports + 1;
+    this.router.navigate(['/rapport/create', newRapportNumber]);
+  }
+  Math = Math;
   rapports: RapportIndex[] = [];
   filteredRapports: RapportIndex[] = [];
   totalRapports = 0;
   totalLignes = 0;
   rapportsActifs = 0;
-  
+
   searchTerm = '';
   sortBy: 'nom' | 'lignes' = 'nom';
   sortOrder: 'asc' | 'desc' = 'asc';
@@ -30,11 +35,7 @@ export class RapportsComponent implements OnInit {
   totalPages = 0;
   paginatedRapports: RapportIndex[] = [];
 
-
-  constructor(
-    private rapportService: RapportService,
-    private router: Router
-  ) {}
+  constructor(private rapportService: RapportService, private router: Router) {}
 
   ngOnInit(): void {
     console.log('Component initialized');
@@ -42,12 +43,12 @@ export class RapportsComponent implements OnInit {
   }
 
   loadRapports(): void {
-    this.rapportService.getIndexData().subscribe(data => {
+    this.rapportService.getIndexData().subscribe((data) => {
       console.log('Index data:', data);
       this.totalRapports = data.total;
       this.totalLignes = data.rapports.reduce((sum, r) => sum + r.nombre_lignes, 0);
-      
-      this.rapportService.getRapportsActifs().subscribe(actifs => {
+
+      this.rapportService.getRapportsActifs().subscribe((actifs) => {
         console.log('Rapports actifs:', actifs);
         this.rapports = actifs;
         this.rapportsActifs = actifs.length;
@@ -66,9 +67,10 @@ export class RapportsComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.filteredRapports = this.rapports.filter(r =>
-      r.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      r.fichier.toLowerCase().includes(this.searchTerm.toLowerCase())
+    this.filteredRapports = this.rapports.filter(
+      (r) =>
+        r.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        r.fichier.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
     console.log('Filtered rapports:', this.filteredRapports);
@@ -93,21 +95,21 @@ export class RapportsComponent implements OnInit {
   // 🆕 MÉTHODES DE PAGINATION - AJOUTEZ CES MÉTHODES
   updatePagination(): void {
     this.totalPages = Math.ceil(this.filteredRapports.length / this.itemsPerPage);
-    
+
     // S'assurer que currentPage est valide
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages || 1;
     }
-    
+
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.paginatedRapports = this.filteredRapports.slice(startIndex, endIndex);
-    
+
     console.log('Pagination:', {
       currentPage: this.currentPage,
       totalPages: this.totalPages,
       itemsPerPage: this.itemsPerPage,
-      paginatedCount: this.paginatedRapports.length
+      paginatedCount: this.paginatedRapports.length,
     });
   }
 
@@ -143,7 +145,7 @@ export class RapportsComponent implements OnInit {
   getPageNumbers(): number[] {
     const pages: number[] = [];
     const maxPagesToShow = 5;
-    
+
     if (this.totalPages <= maxPagesToShow) {
       for (let i = 1; i <= this.totalPages; i++) {
         pages.push(i);
@@ -163,7 +165,7 @@ export class RapportsComponent implements OnInit {
         }
       }
     }
-    
+
     return pages;
   }
 

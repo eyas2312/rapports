@@ -12,8 +12,12 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: RapportCreate,
+    component: RapportsComponent,
     // Protège la page des rapports
+  },
+  {
+    path: 'rapport/create/:number',
+    component: RapportCreate,
   },
   {
     path: 'rapport/:nom',

@@ -1,0 +1,14 @@
+[
+  {
+    "col_1": "A1",
+    "nom": "Nom",
+    "denomination": "Dénomination",
+    "heureMin": "08:00",
+    "min": 12.5,
+    "heureMax": "14:00",
+    "max": 38.2,
+    "moyp": 1.2,
+    "uniting": "°C",
+    "qf": 95
+  }
+]
