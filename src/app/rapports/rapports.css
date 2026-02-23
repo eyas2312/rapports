@@ -38,6 +38,8 @@ h1 {
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   min-width: 150px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .stat-card h3 {
@@ -51,6 +53,12 @@ h1 {
   font-size: 1.8em;
   font-weight: bold;
   margin: 0;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  background-color: #a28b8b;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .controls {

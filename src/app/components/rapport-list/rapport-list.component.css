@@ -22,7 +22,7 @@ header {
 header h1 {
   font-size: 2.5rem;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 header p {
@@ -42,12 +42,13 @@ header p {
   padding: 25px;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
+  background-color: #a28b8b;
 }
 
 .stat-number {
@@ -68,7 +69,7 @@ header p {
   padding: 10px 12px;
   border-radius: 15px;
   margin-bottom: 30px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.0);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0);
 }
 
 .search-bar input {
@@ -78,7 +79,6 @@ header p {
   border-radius: 10px;
   font-size: 1rem;
 }
-
 
 .search-bar input:focus {
   outline: none;
@@ -102,14 +102,14 @@ header p {
   background: white;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: all 0.3s;
   cursor: pointer;
 }
 
 .rapport-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
 .rapport-header {
@@ -319,7 +319,7 @@ header p {
 .table-wrapper {
   overflow-x: auto;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 table {
@@ -385,23 +385,29 @@ tr:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {
   header h1 {
     font-size: 1.8rem;
   }
-  
+
   .stats-bar {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .rapports-grid {
     grid-template-columns: 1fr;
   }

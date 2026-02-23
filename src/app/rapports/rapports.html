@@ -14,10 +14,9 @@
         <h3>Rapports Actifs</h3>
         <p>{{ rapportsActifs }}</p>
       </div>
-
-      <div>
-        <!-- add new form button-->
-        <button class="btn btn-primary" (click)="createNewRapport()">+ Nouveau Rapport</button>
+      <div class="stat-card" (click)="createNewRapport()">
+        <h3>Nouveau Rapport</h3>
+        <p>+</p>
       </div>
     </div>
   </header>
