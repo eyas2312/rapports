@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -317,135 +316,29 @@ import { AuthService } from '../services/auth.service';
 
 })
 export class AuthComponent {
-  isLogin = true;
-  showPassword = false;
-  authForm: FormGroup;
-  errorMessage = '';
-  isLoading = false;
-
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
-  ) {
-    this.authForm = this.createForm();
-  }
-
-  createForm(): FormGroup {
-    return this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: [''],
-      nom: [''],
-      prenom: ['']
-    });
-  }
-
-  toggleMode(): void {
-    this.isLogin = !this.isLogin;
-    this.errorMessage = '';
-    this.authForm.reset();
-    
-    if (!this.isLogin) {
-      this.authForm.get('nom')?.setValidators([Validators.required]);
-      this.authForm.get('prenom')?.setValidators([Validators.required]);
-      this.authForm.get('confirmPassword')?.setValidators([Validators.required]);
-    } else {
-      this.authForm.get('nom')?.clearValidators();
-      this.authForm.get('prenom')?.clearValidators();
-      this.authForm.get('confirmPassword')?.clearValidators();
-    }
-    
-    this.authForm.get('nom')?.updateValueAndValidity();
-    this.authForm.get('prenom')?.updateValueAndValidity();
-    this.authForm.get('confirmPassword')?.updateValueAndValidity();
-  }
-
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  getErrorMessage(fieldName: string): string {
-    const field = this.authForm.get(fieldName);
-    
-    if (field?.hasError('required')) {
-      return `${this.getFieldLabel(fieldName)} est requis`;
-    }
-    if (field?.hasError('email')) {
-      return 'Email invalide';
-    }
-    if (field?.hasError('minlength')) {
-      return 'Minimum 6 caractères';
-    }
-    return '';
-  }
-
-  getFieldLabel(fieldName: string): string {
-    const labels: { [key: string]: string } = {
-      email: 'Email',
-      password: 'Mot de passe',
-      confirmPassword: 'Confirmation',
-      nom: 'Nom',
-      prenom: 'Prénom'
-    };
-    return labels[fieldName] || fieldName;
-  }
-
-  onSubmit(): void {
-    if (this.authForm.invalid) {
-      Object.keys(this.authForm.controls).forEach(key => {
-        this.authForm.get(key)?.markAsTouched();
-      });
-      return;
-    }
-
-    if (!this.isLogin) {
-      const password = this.authForm.get('password')?.value;
-      const confirmPassword = this.authForm.get('confirmPassword')?.value;
-      
-      if (password !== confirmPassword) {
-        this.errorMessage = 'Les mots de passe ne correspondent pas';
-        return;
-      }
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    if (this.isLogin) {
-      this.authService.login({
-        email: this.authForm.value.email,
-        password: this.authForm.value.password
-      }).subscribe({
-        next: () => {
-          this.router.navigate(['/']); // Redirection vers la page des rapports
-        },
-        error: (error: { error: { message: string; }; }) => {
-          this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Erreur de connexion';
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
-      });
-    } else {
-      this.authService.register({
-        email: this.authForm.value.email,
-        password: this.authForm.value.password,
-        nom: this.authForm.value.nom,
-        prenom: this.authForm.value.prenom
-      }).subscribe({
-        next: () => {
-          this.router.navigate(['/']); // Redirection vers la page des rapports
-        },
-        error: (error: { error: { message: string; }; }) => {
-          this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Erreur d\'inscription';
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
-      });
-    }
-  }
+onSubmit() {
+throw new Error('Method not implemented.');
+}
+togglePasswordVisibility() {
+throw new Error('Method not implemented.');
+}
+authForm: any;
+showPassword: any;
+getErrorMessage(arg0: string) {
+throw new Error('Method not implemented.');
+}
+isLoading: any;
+toggleMode() {
+throw new Error('Method not implemented.');
+}
+  fb=inject(FormBuilder);
+  router=inject(Router);
+  form=this.fb.nonNullable.group({
+    username:['',Validators.required],
+    email:['',Validators.required],
+    password:['',Validators.required],
+  });
+  errorMessage:string|null=null;
+isLogin: any;
+ 
 }
