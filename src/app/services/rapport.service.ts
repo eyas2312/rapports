@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
-import { RapportResponse } from '../models/rapport.model';
+import { LigneRapport, Rapport, RapportResponse } from '../models/rapport.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -33,5 +33,10 @@ export class RapportService {
         return rapport ? rapport : null;
       }),
     );
+  }
+
+  addRapport(rapport: Rapport) {
+    rapport.total_lignes = rapport.donnees.length;
+    return this.http.post('http://localhost:3000/rapports', rapport);
   }
 }

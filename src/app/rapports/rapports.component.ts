@@ -51,7 +51,6 @@ export class RapportsComponent implements OnInit {
       this.rapportsActifs = this.rapports.filter((r) => r.donnees.length > 0).length;
 
       this.applyFilters();
-      console.log(this.rapports);
       this.loading = false;
     });
   }
@@ -69,8 +68,6 @@ export class RapportsComponent implements OnInit {
     this.filteredRapports = this.rapports.filter((r) =>
       r.id.toLowerCase().includes(this.searchTerm.toLowerCase()),
     );
-
-    console.log('Filtered rapports:', this.filteredRapports);
 
     this.filteredRapports.sort((a, b) => {
       let valA = this.sortBy === 'nom' ? a.id : a.total_lignes;
