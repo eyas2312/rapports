@@ -3,42 +3,55 @@
     ← Retour à la liste
   </button>
 
-  <div class="rapport-header" *ngIf="rapportData">
-    <h2>📊 {{ rapportNom }}</h2>
-    <p>Rapport des Grilles Analogiques - {{ rapportData.total_lignes }} lignes</p>
-    
-    <div class="rapport-metadata">
-      <div class="metadata-item" *ngIf="metadata.dateCreation">
-        <strong>Date de création</strong>
-        <div>{{ metadata.dateCreation }}</div>
-      </div>
-      <div class="metadata-item" *ngIf="metadata.heureDebut">
-        <strong>Période</strong>
-        <div>De {{ metadata.heureDebut }}</div>
-        <div>À {{ metadata.heureFin }}</div>
-      </div>
-      <div class="metadata-item" *ngIf="metadata.intervalle">
-        <strong>Intervalle</strong>
-        <div>{{ metadata.intervalle }}</div>
+  @if (rapportData) {
+    <div class="rapport-header">
+      <h2>📊 {{ rapportNom }}</h2>
+      <p>Rapport des Grilles Analogiques - {{ rapportData.total_lignes }} lignes</p>
+      <div class="rapport-metadata">
+        @if (metadata.dateCreation) {
+          <div class="metadata-item">
+            <strong>Date de création</strong>
+            <div>{{ metadata.dateCreation }}</div>
+          </div>
+        }
+        @if (metadata.heureDebut) {
+          <div class="metadata-item">
+            <strong>Période</strong>
+            <div>De {{ metadata.heureDebut }}</div>
+            <div>À {{ metadata.heureFin }}</div>
+          </div>
+        }
+        @if (metadata.intervalle) {
+          <div class="metadata-item">
+            <strong>Intervalle</strong>
+            <div>{{ metadata.intervalle }}</div>
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 
   <h3 class="section-title">📈 Données Analogiques</h3>
-  
+
   <div class="table-container">
     <table>
       <thead>
         <tr>
-          <th *ngFor="let header of tableHeaders">{{ header }}</th>
+          @for (header of tableHeaders; track header) {
+            <th>{{ header }}</th>
+          }
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of tableData">
-          <td *ngFor="let header of tableHeaders; let i = index">
-            {{ getTableValue(row, i) }}
-          </td>
-        </tr>
+        @for (row of tableData; track row) {
+          <tr>
+            @for (header of tableHeaders; track header; let i = $index) {
+              <td>
+                {{ getTableValue(row, i) }}
+              </td>
+            }
+          </tr>
+        }
       </tbody>
     </table>
   </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { RapportService } from '../../services/rapport.service';
 import { RapportData, RapportMetadata } from '../../models/rapport.model';
@@ -7,7 +7,7 @@ import { RapportData, RapportMetadata } from '../../models/rapport.model';
 @Component({
   selector: 'app-rapport-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './rapport-detail.component.html',
   styleUrls: ['./rapport-detail.component.css']
 })

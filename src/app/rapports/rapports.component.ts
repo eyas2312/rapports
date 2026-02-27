@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RapportService } from '../services/rapport.service';
@@ -8,7 +8,7 @@ import { RapportIndex } from '../models/rapport.model';
 @Component({
   selector: 'app-rapports',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './rapports.html',
   styleUrls: ['./rapports.css'],
 })

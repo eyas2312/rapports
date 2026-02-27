@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { TableRow } from '../../models/row.model';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-rapport-create',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './rapport-create.html',
   styleUrl: './rapport-create.css',
 })
