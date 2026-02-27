@@ -1,6 +1,5 @@
 .detail-container {
   max-width: 1800px;
-  margin: 20px auto;
   padding: 25px;
   background: linear-gradient(135deg, #003d82 0%, #0066cc 50%, #004d99 100%);
   min-height: 100vh;
@@ -14,11 +13,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: radial-gradient(
-      circle at 20% 50%,
-      rgba(255, 255, 255, 0.05) 0%,
-      transparent 50%
-    ),
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
   pointer-events: none;
 }
