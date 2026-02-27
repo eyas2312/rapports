@@ -5,6 +5,14 @@
     <div class="rapport-header">
       <h2>📊 {{ rapportNom }}</h2>
       <p>Rapport des Grilles Analogiques - {{ rapportData.total_lignes }} lignes</p>
+
+      <button
+        (click)="deleteRapport()"
+        class="bg-red-600 ml-auto hover:bg-red-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition flex items-center gap-2"
+      >
+        🗑️ Supprimer le rapport
+      </button>
+
       <div class="rapport-metadata">
         @if (metadata.dateCreation) {
           <div class="metadata-item">

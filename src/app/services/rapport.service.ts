@@ -39,4 +39,8 @@ export class RapportService {
     rapport.total_lignes = rapport.donnees.length;
     return this.http.post('http://localhost:3000/rapports', rapport);
   }
+
+  deleteRapport(nom: string) {
+    return this.http.delete(`http://localhost:3000/rapports/${nom}`);
+  }
 }

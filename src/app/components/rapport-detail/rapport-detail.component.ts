@@ -74,6 +74,15 @@ export class RapportDetailComponent implements OnInit {
     return row[header] !== undefined ? String(row[header]) : '';
   }
 
+  deleteRapport(): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce rapport ?')) {
+      this.rapportService.deleteRapport(this.rapportNom).subscribe(() => {
+        alert('Rapport supprimé avec succès !');
+        this.router.navigate(['/']);
+      });
+    }
+  }
+
   goBack(): void {
     this.router.navigate(['/']);
   }
