@@ -2,7 +2,7 @@
   "rapports": [
     {
       "id": "rapport_01",
-      "dateCreation": "2025-01",
+      "periode": "2025-01",
       "donnees": [
         {
           "col_1": 1,
@@ -136,11 +136,12 @@
           "UnitIng": "",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 11
     },
     {
       "id": "rapport_02",
-      "dateCreation": "2025-02",
+      "periode": "2025-02",
       "donnees": [
         {
           "col_1": 1,
@@ -286,11 +287,12 @@
           "UnitIng": "kg/s",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 12
     },
     {
       "id": "rapport_03",
-      "dateCreation": "2025-03",
+      "periode": "2025-03",
       "donnees": [
         {
           "col_1": 1,
@@ -436,11 +438,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 12
     },
     {
       "id": "rapport_04",
-      "dateCreation": "2025-04",
+      "periode": "2025-04",
       "donnees": [
         {
           "col_1": 1,
@@ -526,11 +529,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 7
     },
     {
       "id": "rapport_05",
-      "dateCreation": "2025-05",
+      "periode": "2025-05",
       "donnees": [
         {
           "col_1": 1,
@@ -616,11 +620,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 7
     },
     {
       "id": "rapport_06",
-      "dateCreation": "2025-06",
+      "periode": "2025-06",
       "donnees": [
         {
           "col_1": 1,
@@ -754,11 +759,12 @@
           "UnitIng": "kg/s",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 11
     },
     {
       "id": "rapport_07",
-      "dateCreation": "2025-07",
+      "periode": "2025-07",
       "donnees": [
         {
           "col_1": 1,
@@ -880,11 +886,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 10
     },
     {
       "id": "rapport_08",
-      "dateCreation": "2025-08",
+      "periode": "2025-08",
       "donnees": [
         {
           "col_1": 1,
@@ -994,11 +1001,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 9
     },
     {
       "id": "rapport_09",
-      "dateCreation": "2025-09",
+      "periode": "2025-09",
       "donnees": [
         {
           "col_1": 1,
@@ -1144,11 +1152,12 @@
           "UnitIng": "kcal/kWh",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 12
     },
     {
       "id": "rapport_10",
-      "dateCreation": "2025-10",
+      "periode": "2025-10",
       "donnees": [
         {
           "col_1": 1,
@@ -1270,11 +1279,12 @@
           "UnitIng": "barg",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 10
     },
     {
       "id": "rapport_11",
-      "dateCreation": "2025-11",
+      "periode": "2025-11",
       "donnees": [
         {
           "col_1": 1,
@@ -1408,11 +1418,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 11
     },
     {
       "id": "rapport_12",
-      "dateCreation": "2025-12",
+      "periode": "2025-12",
       "donnees": [
         {
           "col_1": 1,
@@ -1510,11 +1521,12 @@
           "UnitIng": "°C",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 8
     },
     {
       "id": "rapport_13",
-      "dateCreation": "2026-01",
+      "periode": "2026-01",
       "donnees": [
         {
           "col_1": 1,
@@ -1636,11 +1648,12 @@
           "UnitIng": "kg/s",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 10
     },
     {
       "id": "rapport_14",
-      "dateCreation": "2026-02",
+      "periode": "2026-02",
       "donnees": [
         {
           "col_1": 1,
@@ -1774,11 +1787,12 @@
           "UnitIng": "MJ/m³",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 11
     },
     {
       "id": "rapport_15",
-      "dateCreation": "2026-03",
+      "periode": "2026-03",
       "donnees": [
         {
           "col_1": 1,
@@ -1864,11 +1878,12 @@
           "UnitIng": "barg",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 7
     },
     {
       "id": "rapport_16",
-      "dateCreation": "2026-04",
+      "periode": "2026-04",
       "donnees": [
         {
           "col_1": 1,
@@ -1990,11 +2005,12 @@
           "UnitIng": "kcal/kWh",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 10
     },
     {
       "id": "rapport_17",
-      "dateCreation": "2026-05",
+      "periode": "2026-05",
       "donnees": [
         {
           "col_1": 1,
@@ -2104,11 +2120,12 @@
           "UnitIng": "MW",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 9
     },
     {
       "id": "rapport_18",
-      "dateCreation": "2026-06",
+      "periode": "2026-06",
       "donnees": [
         {
           "col_1": 1,
@@ -2206,11 +2223,12 @@
           "UnitIng": "MJ/m³",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 8
     },
     {
       "id": "rapport_19",
-      "dateCreation": "2026-07",
+      "periode": "2026-07",
       "donnees": [
         {
           "col_1": 1,
@@ -2296,11 +2314,12 @@
           "UnitIng": "m³",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 7
     },
     {
       "id": "rapport_20",
-      "dateCreation": "2026-08",
+      "periode": "2026-08",
       "donnees": [
         {
           "col_1": 1,
@@ -2422,7 +2441,8 @@
           "UnitIng": "kcal/kWh",
           "QF": 1.0
         }
-      ]
+      ],
+      "total_lignes": 10
     }
   ]
 }

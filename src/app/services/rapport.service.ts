@@ -1,23 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { IndexData, RapportData, RapportIndex } from '../models/rapport.model';
-import 
+import { map, Observable, of } from 'rxjs';
+import { RapportResponse } from '../models/rapport.model';
+import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root',
 })
 export class RapportService {
-  constructor() {
-    this.initializeIndexData();
+  private url = 'rapports.json';
+
+  constructor(private http: HttpClient) {}
+
+  getRapports(): Observable<RapportResponse> {
+    return this.http.get<RapportResponse>(this.url);
   }
 
-  private initializeIndexData(): void {}
+  getRapportsNumber(): Observable<number> {
+    return this.getRapports().pipe(map((response) => response.rapports.length));
+  }
+  getRapportsActifs(): Observable<Number[]> {
+    return this.getRapports().pipe(
+      map((response: RapportResponse) => {
+        return response.rapports.filter((r) => r.donnees.length > 0).map((r) => r.donnees.length);
+      }),
+    );
+  }
 
-  getIndexData(): Observable<IndexData> {}
-
-  getRapportData(nom: string): Observable<RapportData> {}
-
-  getRapportsActifs(): Observable<RapportIndex[]> {
-    const actifs = this.indexData.rapports.filter((r) => r.nombre_lignes > 0);
-    return of(actifs);
+  getRapportData(nom: string): Observable<any> {
+    return this.getRapports().pipe(
+      map((response: RapportResponse) => {
+        const rapport = response.rapports.find((r) => r.id === nom);
+        return rapport ? rapport : null;
+      }),
+    );
   }
 }

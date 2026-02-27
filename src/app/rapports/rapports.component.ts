@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RapportService } from '../services/rapport.service';
-import { RapportIndex } from '../models/rapport.model';
+import { Rapport } from '../models/rapport.model';
+
 @Component({
   selector: 'app-rapports',
   standalone: true,
@@ -14,25 +15,26 @@ import { RapportIndex } from '../models/rapport.model';
 export class RapportsComponent implements OnInit {
   createNewRapport() {
     // Redirige vers la page de création de rapport avec le numero totalRapports + 1
-    const newRapportNumber = this.totalRapports + 1;
-    this.router.navigate(['/rapport/create', newRapportNumber]);
+    this.rapportService.getRapportsNumber().subscribe((total) => {
+      const newRapportNumber = total + 1;
+      this.router.navigate(['/rapport/create', newRapportNumber]);
+    });
   }
-  Math = Math;
-  rapports: RapportIndex[] = [];
-  filteredRapports: RapportIndex[] = [];
-  totalRapports = 0;
-  totalLignes = 0;
-  rapportsActifs = 0;
-
-  searchTerm = '';
-  sortBy: 'nom' | 'lignes' = 'nom';
-  sortOrder: 'asc' | 'desc' = 'asc';
 
   // 🆕 PAGINATION - AJOUTEZ CES PROPRIÉTÉS
   currentPage = 1;
   itemsPerPage = 12;
   totalPages = 0;
-  paginatedRapports: RapportIndex[] = [];
+  rapports: Rapport[] = [];
+  filteredRapports: Rapport[] = [];
+  paginatedRapports: Rapport[] = [];
+  rapportsActifs: number = 0;
+  totalLignes: number = 0;
+  totalRapports: number = 0;
+  searchTerm = '';
+  sortBy: 'nom' | 'lignes' = 'nom';
+  sortOrder: 'asc' | 'desc' = 'asc';
+  loading = true;
 
   constructor(
     private rapportService: RapportService,
@@ -41,22 +43,16 @@ export class RapportsComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Component initialized');
-    this.loadRapports();
-  }
+    this.loading = true;
+    this.rapportService.getRapports().subscribe((res) => {
+      this.rapports = res.rapports;
+      this.totalRapports = this.rapports.length;
+      this.totalLignes = this.rapports.reduce((sum, r) => sum + r.donnees.length, 0);
+      this.rapportsActifs = this.rapports.filter((r) => r.donnees.length > 0).length;
 
-  loadRapports(): void {
-    this.rapportService.getIndexData().subscribe((data) => {
-      console.log('Index data:', data);
-      this.totalRapports = data.total;
-      this.totalLignes = data.rapports.reduce((sum, r) => sum + r.nombre_lignes, 0);
-
-      this.rapportService.getRapportsActifs().subscribe((actifs) => {
-        console.log('Rapports actifs:', actifs);
-        this.rapports = actifs;
-        console.table(actifs);
-        this.rapportsActifs = actifs.length;
-        this.applyFilters();
-      });
+      this.applyFilters();
+      console.log(this.rapports);
+      this.loading = false;
     });
   }
 
@@ -70,17 +66,15 @@ export class RapportsComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.filteredRapports = this.rapports.filter(
-      (r) =>
-        r.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        r.fichier.toLowerCase().includes(this.searchTerm.toLowerCase()),
+    this.filteredRapports = this.rapports.filter((r) =>
+      r.id.toLowerCase().includes(this.searchTerm.toLowerCase()),
     );
 
     console.log('Filtered rapports:', this.filteredRapports);
 
     this.filteredRapports.sort((a, b) => {
-      let valA = this.sortBy === 'nom' ? a.nom : a.nombre_lignes;
-      let valB = this.sortBy === 'nom' ? b.nom : b.nombre_lignes;
+      let valA = this.sortBy === 'nom' ? a.id : a.total_lignes;
+      let valB = this.sortBy === 'nom' ? b.id : b.total_lignes;
 
       if (typeof valA === 'string' && typeof valB === 'string') {
         const comparison = valA.localeCompare(valB, 'fr', { numeric: true });
@@ -95,7 +89,6 @@ export class RapportsComponent implements OnInit {
     this.updatePagination();
   }
 
-  // 🆕 MÉTHODES DE PAGINATION - AJOUTEZ CES MÉTHODES
   updatePagination(): void {
     this.totalPages = Math.ceil(this.filteredRapports.length / this.itemsPerPage);
 
@@ -172,8 +165,8 @@ export class RapportsComponent implements OnInit {
     return pages;
   }
 
-  openRapport(rapport: RapportIndex): void {
+  openRapport(rapport: Rapport): void {
     console.log('Opening rapport:', rapport);
-    this.router.navigate(['/rapport', rapport.nom]);
+    this.router.navigate(['/rapport', rapport.id]);
   }
 }

@@ -61,27 +61,26 @@
     </div>
   }
 
-  @if (paginatedRapports.length > 0) {
+  @if (loading) {
+    <div class="loading-container">
+      <div class="spinner">⏳</div>
+      <p>Chargement des rapports...</p>
+    </div>
+  } @else if (paginatedRapports.length > 0) {
     <div class="rapport-grid">
       @for (rapport of paginatedRapports; track rapport) {
         <div class="rapport-card" (click)="openRapport(rapport)">
-          <h3>{{ rapport.nom }}</h3>
+          <h3>{{ rapport.id }}</h3>
           <div class="rapport-info">
             <div class="info-row">
-              <span class="info-label">📄 Fichier</span>
-              <span class="info-value">{{ rapport.fichier }}</span>
-            </div>
-            <div class="info-row">
               <span class="info-label">📊 Lignes</span>
-              <span class="badge">{{ rapport.nombre_lignes }}</span>
+              <span class="badge">{{ rapport.total_lignes }}</span>
             </div>
           </div>
         </div>
       }
     </div>
-  }
-
-  @if (filteredRapports.length === 0) {
+  } @else {
     <div class="no-results">
       <div class="no-results-icon">🔍</div>
       <h3>Aucun rapport trouvé</h3>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 import { FormsModule } from '@angular/forms';
 import { TableRow } from '../../models/row.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RapportCreate {
   rapportNumber: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.rapportNumber = params['number'];
