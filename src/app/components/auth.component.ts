@@ -342,7 +342,6 @@ export class AuthComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: [''],
       nom: [''],
-      prenom: [''],
     });
   }
 
@@ -353,16 +352,13 @@ export class AuthComponent {
 
     if (!this.isLogin) {
       this.authForm.get('nom')?.setValidators([Validators.required]);
-      this.authForm.get('prenom')?.setValidators([Validators.required]);
       this.authForm.get('confirmPassword')?.setValidators([Validators.required]);
     } else {
       this.authForm.get('nom')?.clearValidators();
-      this.authForm.get('prenom')?.clearValidators();
       this.authForm.get('confirmPassword')?.clearValidators();
     }
 
     this.authForm.get('nom')?.updateValueAndValidity();
-    this.authForm.get('prenom')?.updateValueAndValidity();
     this.authForm.get('confirmPassword')?.updateValueAndValidity();
   }
 
@@ -391,7 +387,6 @@ export class AuthComponent {
       password: 'Mot de passe',
       confirmPassword: 'Confirmation',
       nom: 'Nom',
-      prenom: 'Prénom',
     };
     return labels[fieldName] || fieldName;
   }
@@ -431,6 +426,11 @@ export class AuthComponent {
         },
       });
     } else {
+      console.log('Registering user:', {
+        email: this.authForm.value.email,
+        nom: this.authForm.value.nom,
+        password: this.authForm.value.password,
+      });
       this.authService
         .register(this.authForm.value.email, this.authForm.value.nom, this.authForm.value.password)
         .subscribe({

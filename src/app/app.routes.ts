@@ -13,15 +13,18 @@ export const routes: Routes = [
   {
     path: '',
     component: RapportsComponent,
+    canActivate: [AuthGuard], // Protège la page des rapports
     // Protège la page des rapports
   },
   {
     path: 'rapport/create/:number',
+    canActivate: [AuthGuard],
     component: RapportCreate,
   },
   {
     path: 'rapport/:nom',
     component: RapportDetailComponent,
+    canActivate: [AuthGuard], // Protège les détails des rapports
     // Protège les détails des rapports
   },
   {

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RapportService } from '../services/rapport.service';
 import { RapportIndex } from '../models/rapport.model';
-
 @Component({
   selector: 'app-rapports',
   standalone: true,
@@ -35,7 +34,10 @@ export class RapportsComponent implements OnInit {
   totalPages = 0;
   paginatedRapports: RapportIndex[] = [];
 
-  constructor(private rapportService: RapportService, private router: Router) {}
+  constructor(
+    private rapportService: RapportService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     console.log('Component initialized');
@@ -51,6 +53,7 @@ export class RapportsComponent implements OnInit {
       this.rapportService.getRapportsActifs().subscribe((actifs) => {
         console.log('Rapports actifs:', actifs);
         this.rapports = actifs;
+        console.table(actifs);
         this.rapportsActifs = actifs.length;
         this.applyFilters();
       });
@@ -70,7 +73,7 @@ export class RapportsComponent implements OnInit {
     this.filteredRapports = this.rapports.filter(
       (r) =>
         r.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        r.fichier.toLowerCase().includes(this.searchTerm.toLowerCase())
+        r.fichier.toLowerCase().includes(this.searchTerm.toLowerCase()),
     );
 
     console.log('Filtered rapports:', this.filteredRapports);

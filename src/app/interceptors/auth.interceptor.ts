@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const currentUser = authService.currentUserValue;
+  const currentUser = authService.currentUser;
 
   return next(req);
 };

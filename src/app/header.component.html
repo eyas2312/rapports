@@ -1,0 +1,19 @@
+<header class="header">
+  <div class="header-left">
+    <!-- Ton logo / titre ici -->
+  </div>
+
+  <div class="user-menu" (clickOutside)="menuOpen = false">
+    <button class="user-btn" (click)="toggleMenu()">
+      <span class="avatar">{{ username.charAt(0).toUpperCase() }}</span>
+      <span class="username">{{ username }}</span>
+      <span class="chevron" [class.open]="menuOpen">▾</span>
+    </button>
+
+    <div class="dropdown" *ngIf="menuOpen">
+      <button class="dropdown-item logout" (click)="logout()">
+        <span>🚪</span> Se déconnecter
+      </button>
+    </div>
+  </div>
+</header>
